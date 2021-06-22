@@ -6,7 +6,7 @@ public interface Food extends NutritionFacts {
 
     void setFoodName(String dishName);
 
-    void addFood(Product product, double massOfFood);
+    void addProduct(Product product, double massOfFood);
 
     void removeFood(Product product);
 

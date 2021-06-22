@@ -15,8 +15,8 @@ public class FoodTest {
         product1 = new ProductImpl("product1",3,4,5);
         product2 = new ProductImpl("product2",4,5,6);
         testFood = new FoodImpl("testFood");
-        testFood.addFood(product1,20.0);
-        testFood.addFood(product2,30.0);
+        testFood.addProduct(product1,20.0);
+        testFood.addProduct(product2,30.0);
         System.out.println(testFood);
     }
 
@@ -31,8 +31,8 @@ public class FoodTest {
     @Test
     public void addFoodTest() {
         Product product3 = new ProductImpl("product3",  5, 6,7);
-        testFood.addFood(product2, 10.0);
-        testFood.addFood(product3, 60.0);
+        testFood.addProduct(product2, 10.0);
+        testFood.addProduct(product3, 60.0);
         Assert.assertEquals(5.2, testFood.getProtein(),0.0001);
         Assert.assertEquals(6.4, testFood.getFat(),0.0001);
         Assert.assertEquals(7.6, testFood.getCarbohydrate(),0.0001);
@@ -94,8 +94,8 @@ public class FoodTest {
     @Test
     public void foodEqualsTest() {
         Food newFood = new FoodImpl("New Food");
-        newFood.addFood(product2, 30.0);
-        newFood.addFood(product1,20.0);
+        newFood.addProduct(product2, 30.0);
+        newFood.addProduct(product1,20.0);
         Assert.assertEquals(newFood, testFood);
     }
 }

@@ -106,7 +106,7 @@ public class FoodImpl implements Food {
     }
 
     @Override
-    public void addFood(Product product, double massOfFood) {
+    public void addProduct(Product product, double massOfFood) {
         ProductServing productServing = new ProductServing(product, massOfFood);
         if (!foods.contains(productServing)) {
             foods.add(productServing);
