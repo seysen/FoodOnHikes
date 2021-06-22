@@ -1,4 +1,4 @@
-public interface Product extends NutrilonFacts {
+public interface Product extends NutritionFacts {
 
     String getProductName();
 

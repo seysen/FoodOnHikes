@@ -1,7 +1,7 @@
-public interface NutrilonFacts {
-    double PROTEINENERGY = 4.1;
-    double FATENERGY = 9.29;
-    double CARBOHYDRATEENERGY = 4.1;
+public interface NutritionFacts {
+    double PROTEIN_ENERGY = 4.1;
+    double FAT_ENERGY = 9.29;
+    double CARBOHYDRATE_ENERGY = 4.1;
 
     double getEnergy();
 

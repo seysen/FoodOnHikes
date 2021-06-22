@@ -64,7 +64,7 @@ public class ProductImpl implements Product {
 
     private void calculateEnergy() {
         if (protein != 0.0 || fat != 0.0 || carbohydrate != 0.0) {
-            energy = protein * PROTEINENERGY + fat * FATENERGY + carbohydrate * CARBOHYDRATEENERGY;
+            energy = protein * PROTEIN_ENERGY + fat * FAT_ENERGY + carbohydrate * CARBOHYDRATE_ENERGY;
         }
     }
 

@@ -1,6 +1,6 @@
 import java.util.Map;
 
-public interface Food extends NutrilonFacts {
+public interface Food extends NutritionFacts {
 
     String getFoodName();
 
