@@ -75,7 +75,7 @@ public class FoodTest {
 
     @Test
     public void setFoodWeightTest() {
-        testFood.setFoodWeight(product1, 30.0);
+        testFood.setProductWeight(product1, 30.0);
         Assert.assertEquals(2.1, testFood.getProtein(),0.0001);
         Assert.assertEquals(2.7, testFood.getFat(),0.0001);
         Assert.assertEquals(3.3, testFood.getCarbohydrate(),0.0001);
@@ -87,7 +87,7 @@ public class FoodTest {
         Map<Product, Double> expectedFoods = new HashMap<>();
         expectedFoods.put(product1, 20.);
         expectedFoods.put(product2, 30.);
-        Map<Product, Double> foods = testFood.getProducts();
+        Map<Product, Double> foods = testFood.getFoodProducts();
         Assert.assertEquals(expectedFoods,foods);
     }
 

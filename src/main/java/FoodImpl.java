@@ -42,9 +42,9 @@ public class FoodImpl implements Food {
         carbohydrate = 0;
         for (ProductServing productServing :
                 foods) {
-            protein += productServing.getProtein() * productServing.massOfProduct / 100;
-            fat += productServing.getFat() * productServing.massOfProduct / 100;
-            carbohydrate += productServing.getCarbohydrate() * productServing.massOfProduct / 100;
+            protein += productServing.getProtein();
+            fat += productServing.getFat();
+            carbohydrate += productServing.getCarbohydrate();
         }
     }
 
@@ -112,14 +112,14 @@ public class FoodImpl implements Food {
             foods.add(productServing);
         } else {
             ProductServing oldProductServing = foods.get(foods.indexOf(productServing));
-            oldProductServing.massOfProduct += productServing.massOfProduct;
+            oldProductServing.setMassOfProduct(oldProductServing.getMassOfProduct() + productServing.getMassOfProduct());
         }
         updateFood();
     }
 
     @Override
     public void removeFood(Product product) {
-        foods.removeIf(productServing -> productServing.product.equals(product));
+        foods.removeIf(productServing -> productServing.getProduct().equals(product));
         updateFood();
     }
 
@@ -127,32 +127,32 @@ public class FoodImpl implements Food {
     public double getProductWeight(Product product) {
         for (ProductServing productServing :
                 foods) {
-            if (productServing.product.equals(product)) {
-                return productServing.massOfProduct;
+            if (productServing.getProduct().equals(product)) {
+                return productServing.getMassOfProduct();
             }
         }
         return 0.0;
     }
 
     @Override
-    public void setFoodWeight(Product product, double massOfFood) {
+    public void setProductWeight(Product product, double massOfFood) {
         for (ProductServing productServing :
                 foods) {
-            if (productServing.product.equals(product)) {
-                productServing.massOfProduct = massOfFood;
+            if (productServing.getProduct().equals(product)) {
+                productServing.setMassOfProduct(massOfFood);
             }
         }
         updateFood();
     }
 
     @Override
-    public Map<Product, Double> getProducts() {
-        Map<Product, Double> foodMap = new HashMap<>();
+    public Map<Product, Double> getFoodProducts() {
+        Map<Product, Double> productMap = new HashMap<>();
         for (ProductServing productServing :
                 foods) {
-            foodMap.put(productServing.product, productServing.massOfProduct);
+            productMap.put(productServing.getProduct(), productServing.getMassOfProduct());
         }
-        return foodMap;
+        return productMap;
     }
 
     @Override
@@ -165,7 +165,7 @@ public class FoodImpl implements Food {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FoodImpl food = (FoodImpl) o;
-        return Objects.equals(this.getProducts(), food.getProducts());
+        return Objects.equals(this.getFoodProducts(), food.getFoodProducts());
     }
 
     @Override
@@ -190,39 +190,4 @@ public class FoodImpl implements Food {
         updateFood();
     }
 
-    private class ProductServing {
-        private final Product product;
-        private double massOfProduct;
-
-        public ProductServing(Product product, double massOfProduct) {
-            this.product = product;
-            this.massOfProduct = massOfProduct;
-        }
-
-        public double getProtein() {
-            return product.getProtein();
-        }
-
-        public double getFat() {
-            return product.getFat();
-        }
-
-        public double getCarbohydrate() {
-            return product.getCarbohydrate();
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            ProductServing that = (ProductServing) o;
-            return Double.compare(that.massOfProduct, massOfProduct) == 0 &&
-                    Objects.equals(product, that.product);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(product, massOfProduct);
-        }
-    }
 }

@@ -14,7 +14,7 @@ public interface Food extends NutritionFacts {
 
     double getProductWeight(Product product);
 
-    void setFoodWeight(Product product, double massOfFood);
+    void setProductWeight(Product product, double massOfFood);
 
-    Map<Product, Double> getProducts();
+    Map<Product, Double> getFoodProducts();
 }
