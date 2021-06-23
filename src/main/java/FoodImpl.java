@@ -2,7 +2,7 @@ import java.util.*;
 
 public class FoodImpl implements Food {
     private String foodName;
-    private double massOfFood;
+    private double foodWeight;
     private double energy;
     private double protein;
     private double fat;
@@ -19,8 +19,8 @@ public class FoodImpl implements Food {
         this.foodName = dishName;
     }
 
-    public double getMassOfFood() {
-        return massOfFood;
+    public double getFoodWeight() {
+        return foodWeight;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class FoodImpl implements Food {
     public void updateFood() {
         calculateNutritionFacts();
         if (protein != 0.0 || fat != 0.0 || carbohydrate != 0.0) {
-            massOfFood = protein + fat + carbohydrate;
+            foodWeight = protein + fat + carbohydrate;
             energy = protein * PROTEIN_ENERGY + fat * FAT_ENERGY + carbohydrate * CARBOHYDRATE_ENERGY;
         }
     }
