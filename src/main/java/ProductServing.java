@@ -2,35 +2,35 @@ import java.util.Objects;
 
 public class ProductServing {
     private final Product product;
-    private double massOfProduct;
+    private double productWeight;
 
-    public ProductServing(Product product, double massOfProduct) {
+    public ProductServing(Product product, double productWeight) {
         this.product = product;
-        this.massOfProduct = massOfProduct;
+        this.productWeight = productWeight;
     }
 
     public Product getProduct() {
         return product;
     }
 
-    public double getMassOfProduct() {
-        return massOfProduct;
+    public double getProductWeight() {
+        return productWeight;
     }
 
-    public void setMassOfProduct(double massOfProduct) {
-        this.massOfProduct = massOfProduct;
+    public void setProductWeight(double productWeight) {
+        this.productWeight = productWeight;
     }
 
     public double getProtein() {
-        return product.getProtein() * massOfProduct / 100;
+        return product.getProtein() * productWeight / 100;
     }
 
     public double getFat() {
-        return product.getFat() * massOfProduct / 100;
+        return product.getFat() * productWeight / 100;
     }
 
     public double getCarbohydrate() {
-        return product.getCarbohydrate() * massOfProduct / 100;
+        return product.getCarbohydrate() * productWeight / 100;
     }
 
     @Override
@@ -38,12 +38,12 @@ public class ProductServing {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductServing that = (ProductServing) o;
-        return Double.compare(that.massOfProduct, massOfProduct) == 0 &&
+        return Double.compare(that.productWeight, productWeight) == 0 &&
                 Objects.equals(product, that.product);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(product, massOfProduct);
+        return Objects.hash(product, productWeight);
     }
 }

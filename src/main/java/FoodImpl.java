@@ -112,7 +112,7 @@ public class FoodImpl implements Food {
             foods.add(productServing);
         } else {
             ProductServing oldProductServing = foods.get(foods.indexOf(productServing));
-            oldProductServing.setMassOfProduct(oldProductServing.getMassOfProduct() + productServing.getMassOfProduct());
+            oldProductServing.setProductWeight(oldProductServing.getProductWeight() + productServing.getProductWeight());
         }
         updateFood();
     }
@@ -128,7 +128,7 @@ public class FoodImpl implements Food {
         for (ProductServing productServing :
                 foods) {
             if (productServing.getProduct().equals(product)) {
-                return productServing.getMassOfProduct();
+                return productServing.getProductWeight();
             }
         }
         return 0.0;
@@ -139,7 +139,7 @@ public class FoodImpl implements Food {
         for (ProductServing productServing :
                 foods) {
             if (productServing.getProduct().equals(product)) {
-                productServing.setMassOfProduct(massOfFood);
+                productServing.setProductWeight(massOfFood);
             }
         }
         updateFood();
@@ -150,7 +150,7 @@ public class FoodImpl implements Food {
         Map<Product, Double> productMap = new HashMap<>();
         for (ProductServing productServing :
                 foods) {
-            productMap.put(productServing.getProduct(), productServing.getMassOfProduct());
+            productMap.put(productServing.getProduct(), productServing.getProductWeight());
         }
         return productMap;
     }
