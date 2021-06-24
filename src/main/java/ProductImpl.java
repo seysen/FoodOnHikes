@@ -1,7 +1,7 @@
 import java.util.Objects;
 
 public class ProductImpl implements Product {
-    private String foodName;
+    private String productName;
     private double energy;
     private double protein;
     private double fat;
@@ -9,12 +9,12 @@ public class ProductImpl implements Product {
 
     @Override
     public String getProductName() {
-        return foodName;
+        return productName;
     }
 
     @Override
     public void setProductName(String productName) {
-        this.foodName = productName;
+        this.productName = productName;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class ProductImpl implements Product {
 
     @Override
     public String toString() {
-        return "Product: " + foodName;
+        return "Product: " + productName;
     }
 
     @Override
@@ -82,25 +82,25 @@ public class ProductImpl implements Product {
                 Double.compare(food.protein, protein) == 0 &&
                 Double.compare(food.fat, fat) == 0 &&
                 Double.compare(food.carbohydrate, carbohydrate) == 0 &&
-                Objects.equals(foodName, food.foodName);
+                Objects.equals(productName, food.productName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(foodName, energy, protein, fat, carbohydrate);
+        return Objects.hash(productName, energy, protein, fat, carbohydrate);
     }
 
-    public ProductImpl(String foodName) {
-        this.foodName = foodName;
+    public ProductImpl(String productName) {
+        this.productName = productName;
     }
 
-    public ProductImpl(String foodName, double energy) {
-        this.foodName = foodName;
+    public ProductImpl(String productName, double energy) {
+        this.productName = productName;
         this.energy = energy;
     }
 
     public ProductImpl(String foodName, double protein, double fat, double carbohydrate) {
-        this.foodName = foodName;
+        this.productName = foodName;
         this.protein = protein;
         this.fat = fat;
         this.carbohydrate = carbohydrate;

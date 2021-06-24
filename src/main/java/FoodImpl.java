@@ -15,8 +15,8 @@ public class FoodImpl implements Food {
     }
 
     @Override
-    public void setFoodName(String dishName) {
-        this.foodName = dishName;
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
     }
 
     public double getFoodWeight() {
