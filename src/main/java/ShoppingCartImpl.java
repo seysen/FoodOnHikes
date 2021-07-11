@@ -1,34 +1,83 @@
 import java.util.*;
 
 public class ShoppingCartImpl implements ShoppingCart {
-    Set<ShoppingCartItem> shoppingCart = new HashSet<>();
+    private final List<ShoppingCartItem> shoppingCart = new ArrayList<>();
 
     @Override
-    public Set<ShoppingCartItem> getShoppingCart() {
+    public List<ShoppingCartItem> getShoppingCartItems() {
         return shoppingCart;
     }
 
     @Override
-    public void addShoppingCartItem(Product product, double productWeight) {
-        shoppingCart.add(new ShoppingCartItem(product, productWeight));
+    public void addProduct(Product product, double productWeight) {
+        if (containsProduct(product)) {
+            int index = indexOfProduct(product);
+            double oldMass = shoppingCart.get(index).getProductWeight();
+            shoppingCart.get(index).setProductWeight(oldMass + productWeight);
+        } else {
+            shoppingCart.add(new ShoppingCartItemImpl(product, productWeight));
+        }
+        sort();
+    }
+
+    private void sort() {
+        shoppingCart.sort(Comparator.comparing(ShoppingCartItem::getProductWeight).reversed()
+                .thenComparing((ShoppingCartItem shoppingCartItem) -> shoppingCartItem.getProduct().toString()));
+    }
+
+    private boolean containsProduct(Product product) {
+        return indexOfProduct(product) >= 0;
+    }
+
+    private int indexOfProduct(Product product) {
+        sort();
+        int index = -1;
+        for (int i = 0; i < shoppingCart.size(); i++) {
+            if (shoppingCart.get(i).getProduct().equals(product)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     @Override
-    public Set<Product> getSetOfProducts() {
-        Set<Product> productSet = new HashSet<>();
-        Iterator<ShoppingCartItem> iterator = shoppingCart.iterator();
-        while (iterator.hasNext()) {
-            ShoppingCartItem item = iterator.next();
-            productSet.add(item.getProduct());
+    public boolean containsItem(ShoppingCartItem shoppingCartItem) {
+        return indexOfItem(shoppingCartItem) >= 0;
+    }
+
+    private int indexOfItem(ShoppingCartItem shoppingCartItem) {
+        sort();
+        int index = -1;
+        for (int i = 0; i < shoppingCart.size(); i++) {
+            if (shoppingCart.get(i).equals(shoppingCartItem)) {
+                index = i;
+                break;
+            }
         }
-        return productSet;
+        return index;
+    }
+
+    @Override
+    public void setShoppingCartItem(ShoppingCartItem shoppingCartItem) {
+        Product product = shoppingCartItem.getProduct();
+        if (containsProduct(product)) {
+            setProductWeight(product, shoppingCartItem.getProductWeight());
+            setProductBought(product, false);
+        } else {
+            shoppingCart.add(shoppingCartItem);
+            sort();
+        }
+    }
+
+    @Override
+    public void removeProduct(Product product) {
+        shoppingCart.removeIf(shoppingCartItem -> shoppingCartItem.getProduct().equals(product));
     }
 
     @Override
     public ShoppingCartItem getShoppingCartItem(Product product) {
-        Iterator<ShoppingCartItem> iterator = shoppingCart.iterator();
-        while (iterator.hasNext()) {
-            ShoppingCartItem item = iterator.next();
+        for (ShoppingCartItem item : shoppingCart) {
             if (product.equals(item.getProduct())) {
                 return item;
             }
@@ -42,12 +91,10 @@ public class ShoppingCartImpl implements ShoppingCart {
     }
 
     @Override
-    public void addProductWeight(Product product, double productWeight) {
-        ShoppingCartItem shoppingCartItem = getShoppingCartItem(product);
-        if (shoppingCartItem != null) {
-            shoppingCartItem.setProductWeight(shoppingCartItem.getProductWeight() + productWeight);
-        } else {
-            shoppingCart.add(new ShoppingCartItem(product, productWeight));
+    public void setProductWeight(Product product, double weight) {
+        int index = indexOfProduct(product);
+        if (index >= 0) {
+            shoppingCart.get(index).setProductWeight(weight);
         }
     }
 
@@ -73,50 +120,5 @@ public class ShoppingCartImpl implements ShoppingCart {
     @Override
     public int hashCode() {
         return Objects.hash(shoppingCart);
-    }
-
-    public class ShoppingCartItem {
-        private final Product product;
-        private double productWeight;
-        private boolean isBought;
-
-        public ShoppingCartItem(Product product, double productWeight) {
-            this.product = product;
-            this.productWeight = productWeight;
-        }
-
-        public Product getProduct() {
-            return product;
-        }
-
-        public double getProductWeight() {
-            return productWeight;
-        }
-
-        public void setProductWeight(double productWeight) {
-            this.productWeight = productWeight;
-        }
-
-        public boolean isBought() {
-            return isBought;
-        }
-
-        public void setBought(boolean bought) {
-            isBought = bought;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            ShoppingCartItem that = (ShoppingCartItem) o;
-            return Double.compare(that.productWeight, productWeight) == 0 &&
-                    product.equals(that.product);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(product, productWeight);
-        }
     }
 }

@@ -99,8 +99,8 @@ public class ProductImpl implements Product {
         this.energy = energy;
     }
 
-    public ProductImpl(String foodName, double protein, double fat, double carbohydrate) {
-        this.productName = foodName;
+    public ProductImpl(String productName, double protein, double fat, double carbohydrate) {
+        this.productName = productName;
         this.protein = protein;
         this.fat = fat;
         this.carbohydrate = carbohydrate;

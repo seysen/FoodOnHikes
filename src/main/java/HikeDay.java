@@ -12,4 +12,6 @@ public interface HikeDay {
     void removeFood(Food food);
 
     void removeFood(int position);
+
+    void fillShoppingCart(ShoppingCart shoppingCart, int numberOfParticipants);
 }

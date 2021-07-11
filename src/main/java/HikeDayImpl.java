@@ -3,7 +3,7 @@ import java.util.List;
 
 public class HikeDayImpl implements HikeDay {
     private final Hike hike;
-    private List<Food> foods = new ArrayList<>();
+    private final List<Food> foods = new ArrayList<>();
 
     public HikeDayImpl(HikeImpl hike) {
         this.hike = hike;
@@ -39,6 +39,12 @@ public class HikeDayImpl implements HikeDay {
         foods.remove(position);
     }
 
+    @Override
+    public void fillShoppingCart(ShoppingCart shoppingCart, int numberOfParticipants) {
+        for (Food food : foods) {
+            food.fillShoppingCart(shoppingCart, numberOfParticipants);
+        }
+    }
     @Override
     public String toString() {
         return "Day of hike " + hike.getHikeName() + " number " + (hike.getHikeDays().indexOf(this));

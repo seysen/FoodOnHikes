@@ -1,20 +1,27 @@
-import java.util.Map;
+import java.util.List;
 
-public interface Food extends NutritionFacts {
+public interface Food {
+    List<ProductServing> getProductServings();
 
     String getFoodName();
 
-    void setFoodName(String dishName);
+    void setFoodName(String foodName);
+
+    double getMassOfFood();
 
     void addProduct(Product product, double massOfFood);
 
-    void removeFood(Product product);
-
-    void updateFood();
+    void removeProduct(Product product);
 
     double getProductWeight(Product product);
 
-    void setProductWeight(Product product, double massOfFood);
+    double getEnergy();
 
-    Map<Product, Double> getFoodProducts();
+    double getProtein();
+
+    double getFat();
+
+    double getCarbohydrate();
+
+    void fillShoppingCart(ShoppingCart shoppingCart, int numberOfParticipants);
 }
