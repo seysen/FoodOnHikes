@@ -1,49 +1,15 @@
-import java.util.Objects;
+public interface ProductServing {
+    Product getProduct();
 
-public class ProductServing {
-    private final Product product;
-    private double massOfProduct;
+    double getMassOfProduct();
 
-    public ProductServing(Product product, double massOfProduct) {
-        this.product = product;
-        this.massOfProduct = massOfProduct;
-    }
+    void setMassOfProduct(double massOfProduct);
 
-    public Product getProduct() {
-        return product;
-    }
+    double getEnergy();
 
-    public double getMassOfProduct() {
-        return massOfProduct;
-    }
+    double getProtein();
 
-    public void setMassOfProduct(double massOfProduct) {
-        this.massOfProduct = massOfProduct;
-    }
+    double getFat();
 
-    public double getProtein() {
-        return product.getProtein() * massOfProduct / 100;
-    }
-
-    public double getFat() {
-        return product.getFat() * massOfProduct / 100;
-    }
-
-    public double getCarbohydrate() {
-        return product.getCarbohydrate() * massOfProduct / 100;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProductServing that = (ProductServing) o;
-        return Double.compare(that.massOfProduct, massOfProduct) == 0 &&
-                Objects.equals(product, that.product);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(product, massOfProduct);
-    }
+    double getCarbohydrate();
 }

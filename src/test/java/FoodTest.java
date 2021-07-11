@@ -2,8 +2,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FoodTest {
     private Food testFood;
@@ -21,7 +21,7 @@ public class FoodTest {
     }
 
     @Test
-    public void createDishTest() {
+    public void createFoodTest() {
         Assert.assertEquals(1.8, testFood.getProtein(),0.0001);
         Assert.assertEquals(2.3, testFood.getFat(),0.0001);
         Assert.assertEquals(2.8, testFood.getCarbohydrate(),0.0001);
@@ -39,17 +39,9 @@ public class FoodTest {
         Assert.assertEquals(111.936, testFood.getEnergy(),0.0001);
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void setProteinTest() {
-        testFood.setProtein(10.0);
-        Food newFood = new FoodImpl("New Food");
-        newFood.setProtein(10.0);
-        Assert.assertEquals(10.0, newFood.getProtein(), 0.0001);
-    }
-
     @Test
     public void removeFoodTest() {
-        testFood.removeFood(product2);
+        testFood.removeProduct(product2);
         Assert.assertEquals(0.6, testFood.getProtein(),0.0001);
         Assert.assertEquals(0.8, testFood.getFat(),0.0001);
         Assert.assertEquals(1.0, testFood.getCarbohydrate(),0.0001);
@@ -59,7 +51,6 @@ public class FoodTest {
     @Test
     public void changeFoodTest() {
         product2.setCarbohydrate(8);
-        testFood.updateFood();
         Assert.assertEquals(1.8, testFood.getProtein(),0.0001);
         Assert.assertEquals(2.3, testFood.getFat(),0.0001);
         Assert.assertEquals(3.4, testFood.getCarbohydrate(),0.0001);
@@ -67,15 +58,15 @@ public class FoodTest {
     }
 
     @Test
-    public void getFoodWeightTest() {
+    public void getProductWeightTest() {
         double foodWeight = testFood.getProductWeight(product1);
         Assert.assertEquals(20, foodWeight, 0.0001);
         Assert.assertEquals(0.0, testFood.getProductWeight(new ProductImpl("food3")), 0.0001);
     }
 
     @Test
-    public void setFoodWeightTest() {
-        testFood.setProductWeight(product1, 30.0);
+    public void secondAddProductTest() {
+        testFood.addProduct(product1, 10.0);
         Assert.assertEquals(2.1, testFood.getProtein(),0.0001);
         Assert.assertEquals(2.7, testFood.getFat(),0.0001);
         Assert.assertEquals(3.3, testFood.getCarbohydrate(),0.0001);
@@ -84,11 +75,17 @@ public class FoodTest {
 
     @Test
     public void getProductsTest() {
-        Map<Product, Double> expectedFoods = new HashMap<>();
-        expectedFoods.put(product1, 20.);
-        expectedFoods.put(product2, 30.);
-        Map<Product, Double> foods = testFood.getFoodProducts();
-        Assert.assertEquals(expectedFoods,foods);
+        List<ProductServing> expectedProducts = new ArrayList<>();
+        expectedProducts.add(new ProductServingImpl(product2, 30.));
+        expectedProducts.add(new ProductServingImpl(product1, 20.));
+        List<ProductServing> foods = testFood.getProductServings();
+        Assert.assertEquals(expectedProducts,foods);
+        System.out.println("Expected:");
+        System.out.println(expectedProducts.get(0).getProduct().toString());
+        System.out.println(expectedProducts.get(1).getProduct().toString());
+        System.out.println("Actual:");
+        System.out.println(foods.get(0).getProduct().toString());
+        System.out.println(foods.get(1).getProduct().toString());
     }
 
     @Test

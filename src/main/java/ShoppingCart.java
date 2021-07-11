@@ -1,19 +1,23 @@
-import java.util.Set;
+import java.util.List;
 
 public interface ShoppingCart {
-    Set<ShoppingCartImpl.ShoppingCartItem> getShoppingCart();
+    List<ShoppingCartItem> getShoppingCartItems();
 
-    void addShoppingCartItem(Product product, double productWeight);
+    void addProduct(Product product, double productWeight);
 
-    Set<Product> getSetOfProducts();
+    void removeProduct(Product product);
 
-    ShoppingCartImpl.ShoppingCartItem getShoppingCartItem(Product product);
+    ShoppingCartItem getShoppingCartItem(Product product);
 
     double getProductWeight(Product product);
 
-    void addProductWeight(Product product, double productWeight);
+    void setProductWeight(Product product, double weight);
 
     boolean isProductBought(Product product);
 
     void setProductBought(Product product, boolean isProductBought);
+
+    boolean containsItem(ShoppingCartItem shoppingCartItem);
+
+    void setShoppingCartItem(ShoppingCartItem shoppingCartItem);
 }

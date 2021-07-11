@@ -1,10 +1,11 @@
 import java.util.*;
 
 public class HikeImpl implements Hike {
+    private final List<HikeDay> hikeDays = new LinkedList<>();
+    private final ShoppingCart shoppingCart = new ShoppingCartImpl();
     private String hikeName;
     private int duration;
     private int numberOfParticipants;
-    private List<HikeDay> hikeDays = new LinkedList<>();
 
     public HikeImpl(String hikeName, int duration, int numberOfParticipants) {
         this.hikeName = hikeName;
@@ -13,6 +14,11 @@ public class HikeImpl implements Hike {
         for (int i = 0; i < duration; i++) {
             hikeDays.add(new HikeDayImpl(this));
         }
+    }
+
+    @Override
+    public List<HikeDay> getHikeDays() {
+        return hikeDays;
     }
 
     @Override
@@ -34,7 +40,7 @@ public class HikeImpl implements Hike {
     public void setDuration(int duration) {
         if (duration > 0){
             if (this.duration > duration){
-                hikeDays = hikeDays.subList(0, duration);
+                hikeDays.removeIf(hikeDay -> hikeDays.indexOf(hikeDay) > duration);
             } else {
                 for (int i = this.duration - 1; i < duration; i++ ) {
                     hikeDays.add(new HikeDayImpl(this));
@@ -61,24 +67,15 @@ public class HikeImpl implements Hike {
     }
 
     @Override
-    public List<HikeDay> getHikeDays() {
-        return hikeDays;
-    }
-
-    @Override
     public HikeDay getHikeDay(int n) {
         return hikeDays.get(n);
     }
 
     @Override
-    public void addHikeDay() {
-        hikeDays.add(new HikeDayImpl(this));
-        duration++;
-    }
-
-    @Override
     public void moveHikeDay(int hikeDayNumber, int position) {
-        hikeDays.set(position, hikeDays.get(hikeDayNumber));
+        HikeDay hikeDay = hikeDays.get(hikeDayNumber);
+        hikeDays.remove(hikeDayNumber);
+        hikeDays.add(position, hikeDay);
     }
 
     @Override
@@ -88,8 +85,20 @@ public class HikeImpl implements Hike {
     }
 
     @Override
-    public String toString() {
-        return "Hike: " + hikeName;
+    public ShoppingCart getShoppingCart() {
+        updateShoppingCart();
+        return shoppingCart;
     }
 
+    private void updateShoppingCart() {
+        ShoppingCart newShoppingCart = new ShoppingCartImpl();
+        for (HikeDay hikeDay : hikeDays) {
+            hikeDay.fillShoppingCart(newShoppingCart, numberOfParticipants);
+        }
+        for (ShoppingCartItem shoppingCartItem : newShoppingCart.getShoppingCartItems()) {
+            if (!shoppingCart.containsItem(shoppingCartItem)) {
+                shoppingCart.setShoppingCartItem(shoppingCartItem);
+            }
+        }
+    }
 }

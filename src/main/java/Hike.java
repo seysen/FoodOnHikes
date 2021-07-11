@@ -1,6 +1,8 @@
 import java.util.List;
 
 public interface Hike {
+    List<HikeDay> getHikeDays();
+
     String getHikeName();
 
     void setHikeName(String hikeName);
@@ -13,13 +15,11 @@ public interface Hike {
 
     void setNumberOfParticipants(int numberOfParticipants);
 
-    List<HikeDay> getHikeDays();
-
     HikeDay getHikeDay(int n);
-
-    void addHikeDay();
 
     void moveHikeDay(int hikeDayNumber, int position);
 
     void removeHikeDay(int numberOfDay);
+
+    ShoppingCart getShoppingCart();
 }
